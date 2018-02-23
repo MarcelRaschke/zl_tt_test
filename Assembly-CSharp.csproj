@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CompleteCameraController.cs" />
      <Compile Include="Assets\Scripts\TestZombieAnimations.cs" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>D:/Git_Repos/zl_tt_test/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
