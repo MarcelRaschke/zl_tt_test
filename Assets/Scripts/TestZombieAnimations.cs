@@ -36,12 +36,14 @@ public class TestZombieAnimations : MonoBehaviour
         zombieActionPicker.onValueChanged.AddListener(delegate { zombieActionChanged(zombieActionPicker); });
         zombieActionPicker.ClearOptions();
         zombieAnimationStates = zombieAnimation.GetComponent<Animation>();
+
         foreach (AnimationState state in zombieAnimationStates)
         {
             zombieStates.Add(state);
             zombieOptions.Add(state.name);
             updateDebug(state.name);
         }
+
         updateDebug("AnimationStates: " + zombieStates.Count.ToString());
         zombieActionPicker.AddOptions(zombieOptions);
         currentAnimation = zombieOptions[0];
@@ -57,21 +59,22 @@ public class TestZombieAnimations : MonoBehaviour
     void Update()
     {
         rotateZombie();
+
         debugText.enabled = showDebug;
+
         if (currentAnimation == "Zombie_Walk_01")
         {
             moveZombie();
         }
+
         rotateZombie();
     }
 
     void moveZombie()
     {
         float step = walkSpeed * Time.deltaTime;
-
         zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, nextTile.transform.position, step);
 
-        // when arriving at next tile change action to idle and find new next tile
         if (zombie.transform.position == nextTile.transform.position)
         {
             setZombieAction(0);
@@ -116,15 +119,18 @@ public class TestZombieAnimations : MonoBehaviour
     {
         GameObject[] allTiles;
         allTiles = GameObject.FindGameObjectsWithTag("GameTile");
+
         foreach (GameObject tile in allTiles)
         {
             tileCollection.Add(tile);
         }
+
         tileCollection.Sort(CompareListByName);
 
         updateDebug("tileCollection: " + tileCollection.Count.ToString());
 
         int i = 0;
+        
         foreach (GameObject tile in tileCollection)
         {
             i = Random.Range(0, tileMaterialCollection.Length);

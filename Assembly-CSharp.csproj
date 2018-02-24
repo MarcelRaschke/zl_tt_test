@@ -51,6 +51,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\loadingBar\scripts\Loading.cs" />
+     <Compile Include="Assets\loadingBar\scripts\loadingbar.cs" />
+     <Compile Include="Assets\loadingBar\scripts\loadingcolorful.cs" />
+     <Compile Include="Assets\loadingBar\scripts\loadingtext.cs" />
+     <Compile Include="Assets\loadingBar\scripts\rotatetotate.cs" />
+     <Compile Include="Assets\loadingBar\scripts\SimpleLoading.cs" />
+     <Compile Include="Assets\loadingBar\scripts\simplerotate.cs" />
      <Compile Include="Assets\Scripts\CompleteCameraController.cs" />
      <Compile Include="Assets\Scripts\TestZombieAnimations.cs" />
  <Reference Include="Facebook.Unity.Settings">

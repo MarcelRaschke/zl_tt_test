@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 34
+  controlID: 93
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 10
+  controlID: 94
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 11
+  controlID: 95
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -611,7 +611,7 @@ MonoBehaviour:
     lastCurrentBranchChangedEvent:
       updatedTimeString: 2018-02-22T22:16:04.9227598-08:00
     lastStatusEntriesChangedEvent:
-      updatedTimeString: 2018-02-23T00:39:05.1847355-08:00
+      updatedTimeString: 2018-02-23T22:52:16.2131512-08:00
     lastLocksChangedEvent:
       updatedTimeString: 
   historyView:
@@ -9164,33 +9164,33 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Material
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Material
+  - Assets/loadingBar
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Git_Repos\zl_tt_test
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 122a0000
-    m_LastClickedID: 10770
-    m_ExpandedIDs: 00000000f2290000b22a000000ca9a3bffffff7f
+    m_SelectedIDs: f6290000
+    m_LastClickedID: 10742
+    m_ExpandedIDs: 00000000f6290000bc2a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: loadingBar
+      m_OriginalName: loadingBar
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 31434
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 5}
     m_SearchString: 
@@ -9204,7 +9204,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000f2290000942a0000b22a0000
+    m_ExpandedIDs: 00000000f6290000bc2a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -9231,7 +9231,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300007c2cffff40a4ffff0a25000028250000162500000000000016acfdff8a270000a6270000242a00001c2a0000d6a0fbff
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -9322,9 +9322,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d845f9ff
-    m_LastClickedID: -440872
-    m_ExpandedIDs: 9846f9ff2048f9ff044af9ff1490f9ffaa94faffd05dfcffd461fcffd0faffff94fbffff96fbffff00000000d02a00001c2b00004a2b000034680000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 9684f9ff828af9ff3091f9ff7095f9ff169cf9ff66b4ffff96fbffff00000000dc2a0000b280000036810000e4810000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -9375,14 +9375,14 @@ MonoBehaviour:
     height: 906
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 8153.415471853854
+  lastFramingTime: 24569.615487989544
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -5020, y: 1, z: 3750}
+    m_Target: {x: 25.321585, y: -18.683296, z: 90}
     speed: 2
-    m_Value: {x: -5020, y: 1, z: 3750}
+    m_Value: {x: 25.321585, y: -18.683296, z: 90}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -9398,25 +9398,25 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
     yGrid:
-      m_Target: 1
-      speed: 2
-      m_Value: 1
-    zGrid:
       m_Target: 0
       speed: 2
       m_Value: 0
+    zGrid:
+      m_Target: 1
+      speed: 2
+      m_Value: 1
   m_Rotation:
-    m_Target: {x: -0.14430186, y: -0.5222708, z: 0.09018932, w: -0.83562905}
+    m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
-    m_Value: {x: -0.14430188, y: -0.52227086, z: 0.09018933, w: -0.8356291}
+    m_Value: {x: 0, y: 0, z: 0, w: -0.99999994}
   m_Size:
-    m_Target: 233.35109
+    m_Target: 44.90951
     speed: 2
-    m_Value: 233.35109
+    m_Value: 44.90951
   m_Ortho:
-    m_Target: 0
+    m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_ShowGlobalGrid: 1
   m_LastSceneViewRotation: {x: 0.7071069, y: 0, z: 0, w: 0.7071069}
   m_LastSceneViewOrtho: 0
