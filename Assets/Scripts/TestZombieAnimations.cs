@@ -157,6 +157,8 @@ public class TestZombieAnimations : MonoBehaviour
             sign.transform.localScale = new Vector3(0.001276128f,0.02208854f,0.001276128f);
             //sign.GetComponent<Renderer>().material = tileMaterialCollection[i];
 
+            tile.GetComponent<Renderer>().material = tileMaterialCollection[i];
+
             updateDebug("Tile: " + tile.name + " | Tile Color: " + tileMaterialCollection[i].name + " | Sign: " + signCollection[j].name);
             updateDebug("Sign: " + sign.name + " | Sign Cords: " + sign.transform.rotation.x.ToString());
         }
