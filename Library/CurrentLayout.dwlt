@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 117
+  controlID: 76
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
     y: 0
     width: 2560
     height: 1357
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
 MonoBehaviour:
@@ -611,7 +611,7 @@ MonoBehaviour:
     lastCurrentBranchChangedEvent:
       updatedTimeString: 2018-02-22T22:16:04.9227598-08:00
     lastStatusEntriesChangedEvent:
-      updatedTimeString: 2018-02-24T22:25:56.1012353-08:00
+      updatedTimeString: 2018-02-25T13:36:52.8579955-08:00
     lastLocksChangedEvent:
       updatedTimeString: 
   historyView:
@@ -9164,33 +9164,33 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Material
+    - Assets/Industrial Sign Pack/AssetPackage/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Material
+  - Assets/Industrial Sign Pack/AssetPackage/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Git_Repos\zl_tt_test
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b82a0000
-    m_LastClickedID: 10936
-    m_ExpandedIDs: 00000000942a00005a2b00000053000000ca9a3bffffff7f
+    m_SelectedIDs: 462d0000
+    m_LastClickedID: 11590
+    m_ExpandedIDs: 000000004c2a0000942a0000dc2a0000582d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Characters
-      m_OriginalName: Characters
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 21276
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 5}
     m_SearchString: 
@@ -9204,7 +9204,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000942a00005a2b0000
+    m_ExpandedIDs: 000000004c2a0000dc2a0000582d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -9231,7 +9231,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300007c2cffff40a4ffff0a25000028250000162500000000000016acfdff8a270000a6270000242a00001c2a0000d6a0fbffc82a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -9322,20 +9322,20 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 36bdf5ff
-    m_LastClickedID: -672458
-    m_ExpandedIDs: 2c9bf3ffb88ef8ff5a48f9ff9a9cf9ff4899faff1065fbff706bfbff4e08fcff5818fcff96fbffff00000000102c00004e2c00004e5f0000fa6000004c610000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 96fbffff00000000e62d00008e2e0000de2e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Sign
-      m_OriginalName: Sign
+      m_Name: Maximum_Pole_Sign
+      m_OriginalName: Maximum_Pole_Sign
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -672458
+      m_UserData: -76522
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -9375,14 +9375,14 @@ MonoBehaviour:
     height: 906
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 11746.873433287228
+  lastFramingTime: 801.2749684494855
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -5020, y: 2, z: 3750}
+    m_Target: {x: -5012.273, y: 31.359192, z: 3753.138}
     speed: 2
-    m_Value: {x: -5020, y: 2, z: 3750}
+    m_Value: {x: -5012.273, y: 31.359192, z: 3753.138}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -9406,17 +9406,17 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.06480006, y: -0.93441314, z: 0.2661893, w: 0.22781332}
+    m_Target: {x: 0.08109698, y: 0.80269, z: -0.11221507, w: 0.5801032}
     speed: 2
-    m_Value: {x: 0.06479739, y: -0.9343746, z: 0.26617834, w: 0.22780392}
+    m_Value: {x: 0.08109698, y: 0.80269, z: -0.11221507, w: 0.5801032}
   m_Size:
-    m_Target: 320.10474
+    m_Target: 51.86667
     speed: 2
-    m_Value: 320.10474
+    m_Value: 51.86667
   m_Ortho:
-    m_Target: 1
+    m_Target: 0
     speed: 2
-    m_Value: 1
+    m_Value: 0
   m_ShowGlobalGrid: 1
   m_LastSceneViewRotation: {x: 0.7071069, y: 0, z: 0, w: 0.7071069}
   m_LastSceneViewOrtho: 0
