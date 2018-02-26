@@ -17,8 +17,9 @@ public class TestZombieAnimations : MonoBehaviour
     public GameObject zombie;
     public GameObject currentTile;
     public GameObject nextTile;
+    public GameObject nextColorTile;
     public Text debugText;
-    public RawImage nextColor;
+    public RawImage imageNextColor;
     public string currentAnimation;
     public string zombieStartAnimation = "Zombie_Idle_01";
     public string zombieWalkAnimation = "Zombie_Walk_01";
@@ -37,6 +38,7 @@ public class TestZombieAnimations : MonoBehaviour
         getTileCollection();
         currentTile = tileCollection[currentTileCount];
         nextTile = tileCollection[nextTileCount];
+        nextColorTile = tileCollection[0];
 
         drawCard.onClick.AddListener(delegate { pickCard(); });
 
@@ -83,7 +85,7 @@ public class TestZombieAnimations : MonoBehaviour
         float step = walkSpeed * Time.deltaTime;
         zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, nextTile.transform.position, step);
 
-        if (zombie.transform.position == nextTile.transform.position)
+        if (zombie.transform.position == nextColorTile.transform.position)
         {
             setZombieAction(0);
             zombieActionPicker.value = 0;
@@ -154,7 +156,7 @@ public class TestZombieAnimations : MonoBehaviour
             sign = Instantiate(signCollection[j]);
             sign.transform.position = new Vector3(0, 1, 0);
             sign.transform.rotation = new Quaternion(270, 0, 0, 0);
-            sign.transform.localScale = new Vector3(0.001276128f,0.02208854f,0.001276128f);
+            sign.transform.localScale = new Vector3(0.001276128f, 0.02208854f, 0.001276128f);
             //sign.GetComponent<Renderer>().material = tileMaterialCollection[i];
 
             tile.GetComponent<Renderer>().material = tileMaterialCollection[i];
@@ -189,6 +191,33 @@ public class TestZombieAnimations : MonoBehaviour
         int i = Random.Range(0, tileMaterialCollection.Length);
         nextTileColor = tileMaterialCollection[i].name;
         updateDebug("Card Color: " + nextTileColor);
-        nextColor.color = tileMaterialCollection[i].color;
+        imageNextColor.color = tileMaterialCollection[i].color;
+
+        i = moveReverse ? i = 0 : i = tileCollection.Count - 1;
+
+        if (moveReverse)
+        {
+            i = 0;
+            for (int j = currentTileCount; j > i; j--)
+            {
+                if (tileCollection[j].color == nextTileColor)
+                {
+                    nextColorTile = tileCollection[j];
+                    break;
+                }
+            }
+        }
+        else
+        {
+            i = tileCollection.Count - 1;
+            for (int j = currentTileCount; j > i; j--)
+            {
+                if (tileCollection[j].color == nextTileColor)
+                {
+                    nextColorTile = tileCollection[j];
+                    break;
+                }
+            }
+        }
     }
 }
