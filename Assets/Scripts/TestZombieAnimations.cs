@@ -85,6 +85,7 @@ public class TestZombieAnimations : MonoBehaviour
         float step = walkSpeed * Time.deltaTime;
         zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, nextTile.transform.position, step);
 
+updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , looking for " + nextColorTile.name);
         if (zombie.transform.position == nextColorTile.transform.position)
         {
             setZombieAction(0);
