@@ -1733,8 +1733,9 @@ MonoBehaviour:
   zombie: {fileID: 293899428}
   currentTile: {fileID: 0}
   nextTile: {fileID: 0}
+  nextColorTile: {fileID: 0}
   debugText: {fileID: 643405485}
-  nextColor: {fileID: 190314029}
+  imageNextColor: {fileID: 190314029}
   currentAnimation: 
   zombieStartAnimation: Zombie_Idle_01
   zombieWalkAnimation: Zombie_Walk_01
