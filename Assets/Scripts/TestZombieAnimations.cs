@@ -85,12 +85,32 @@ public class TestZombieAnimations : MonoBehaviour
         float step = walkSpeed * Time.deltaTime;
         zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, nextTile.transform.position, step);
 
-updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , looking for " + nextColorTile.name);
+        updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , looking for " + nextColorTile.name);
         if (zombie.transform.position == nextColorTile.transform.position)
         {
             setZombieAction(0);
             zombieActionPicker.value = 0;
 
+            currentTile = nextTile;
+            currentTileCount = nextTileCount;
+            updateDebug("nextTileCount: " + nextTileCount.ToString());
+
+            if (nextTileCount == (tileCollection.Count - 1))
+            {
+                moveReverse = true;
+            }
+
+            if (moveReverse && currentTileCount == 0)
+            {
+                foundWinner = true;
+                return;
+            }
+
+            nextTileCount = (moveReverse) ? nextTileCount - 1 : nextTileCount + 1;
+            nextTile = tileCollection[nextTileCount];
+        }
+        else if (zombie.transform.position == nextTile.transform.position)
+        {
             currentTile = nextTile;
             currentTileCount = nextTileCount;
             updateDebug("nextTileCount: " + nextTileCount.ToString());
@@ -188,20 +208,21 @@ updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , loo
 
     private void pickCard()
     {
-        updateDebug("Picking a card");
         int i = Random.Range(0, tileMaterialCollection.Length);
+
+        updateDebug("Picking a card: " + i);
         nextTileColor = tileMaterialCollection[i].name;
         updateDebug("Card Color: " + nextTileColor);
-        imageNextColor.color = tileMaterialCollection[i].color;
+        imageNextColor.GetComponent<Graphic>().color = tileMaterialCollection[i].color;
 
         i = moveReverse ? i = 0 : i = tileCollection.Count - 1;
 
         if (moveReverse)
         {
-            i = 0;
-            for (int j = currentTileCount; j > i; j--)
+            for (int j = currentTileCount; j >= i; j--)
             {
-                if (tileCollection[j].GetComponent<Renderer>().material.name == nextTileColor)
+                updateDebug("moveReverse: " + moveReverse.ToString() + " | i:" + i.ToString() + " | j: " + j.ToString() + " | tileCollection: [" + tileCollection[j].GetComponent<Renderer>().material.name + "] | nextTileColor: [" + nextTileColor + "]");
+                if (tileCollection[j].GetComponent<Renderer>().material.name == nextTileColor + " (Instance)")
                 {
                     nextColorTile = tileCollection[j];
                     break;
@@ -210,12 +231,12 @@ updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , loo
         }
         else
         {
-            i = tileCollection.Count - 1;
-            for (int j = currentTileCount; j > i; j--)
+            for (int j = currentTileCount; j <= i; j++)
             {
-                if (tileCollection[j].GetComponent<Renderer>().material.name == nextTileColor)
+                updateDebug("moveReverse: " + moveReverse.ToString() + " | i:" + i.ToString() + " | j: " + j.ToString() + " | tileCollection: [" + tileCollection[j].GetComponent<Renderer>().material.name + "] | nextTileColor: [" + nextTileColor + "]");
+                if (tileCollection[j].GetComponent<Renderer>().material.name == nextTileColor + " (Instance)")
                 {
-                    nextColorTile = tileCollection[j];
+                    nextColorTile = tileCollection[j].gameObject;
                     break;
                 }
             }
