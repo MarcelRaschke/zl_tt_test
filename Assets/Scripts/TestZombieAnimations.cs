@@ -219,5 +219,6 @@ public class TestZombieAnimations : MonoBehaviour
                 }
             }
         }
+        updateDebug("Next Tile to stop at will be: " + nextColorTile.name)
     }
 }
