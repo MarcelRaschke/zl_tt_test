@@ -201,7 +201,7 @@ updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , loo
             i = 0;
             for (int j = currentTileCount; j > i; j--)
             {
-                if (tileCollection[j].color == nextTileColor)
+                if (tileCollection[j].GetComponent<Renderer>().material.name == nextTileColor)
                 {
                     nextColorTile = tileCollection[j];
                     break;
@@ -213,13 +213,13 @@ updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , loo
             i = tileCollection.Count - 1;
             for (int j = currentTileCount; j > i; j--)
             {
-                if (tileCollection[j].color == nextTileColor)
+                if (tileCollection[j].GetComponent<Renderer>().material.name == nextTileColor)
                 {
                     nextColorTile = tileCollection[j];
                     break;
                 }
             }
         }
-        updateDebug("Next Tile to stop at will be: " + nextColorTile.name)
+        updateDebug("Next Tile to stop at will be: " + nextColorTile.name);
     }
 }
