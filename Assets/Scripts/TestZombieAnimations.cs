@@ -128,6 +128,7 @@ public class TestZombieAnimations : MonoBehaviour
 
             if (moveReverse && currentTileCount == 0)
             {
+                setZombieAction(0);
                 foundWinner = true;
                 return;
             }
@@ -182,18 +183,14 @@ public class TestZombieAnimations : MonoBehaviour
         {
             i = Random.Range(0, tileMaterialCollection.Length);
             j = Random.Range(0, signCollection.Length);
-            //j = 0;
+            j = 0;
             GameObject sign;
             sign = Instantiate(signCollection[j].gameObject);
             sign.name = signCollection[j].gameObject.name;
             sign.transform.position = new Vector3(0, 1, 0);
-            sign.transform.Rotate(90, 0, 0);
-            //sign.transform.localScale = new Vector3(sign.transform.localScale.x * 100, sign.transform.localScale.x * 10, 0.01f);
             sign.transform.SetParent(tile.transform, false);
-            //sign.transform.localScale = new Vector3(0.001276128f, 0.02208854f, 0.001276128f);
-            //sign.transform.localScale = new Vector3(sign.transform.localScale.x * 100, sign.transform.localScale.x * 10, 0.01f);
 
-            //sign.GetComponent<Renderer>().material = tileMaterialCollection[i];
+            sign.GetComponent<Renderer>().material = tileMaterialCollection[i];
             updateDebug("sign: " + sign.name + " | parent: " + tile.name + " | position: " + sign.transform.position.ToString());
 
             foundMaterial = tileMaterialCollection[i];
