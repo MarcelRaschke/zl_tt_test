@@ -1,8 +1,13 @@
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
+/[Ll]library/
+/library/
+/Library/
+[Ll]library/
+library/
+Library/
+/temp/
+/obj/
+/build/
+/builds/
 
 /Assets/AssetStoreTools*
 /Assets/Plugins/GitHub.meta
