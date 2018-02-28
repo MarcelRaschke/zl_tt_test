@@ -5,19 +5,20 @@ using UnityEngine.UI;
 
 public class TestZombieAnimations : MonoBehaviour
 {
+    #region Public Variables
     public List<AnimationState> zombieStates = new List<AnimationState>();
-    public List<GameObject> tileCollection;
+    public List<GameObject> tileCollection = new List<GameObject>();
+    public List<string> zombieOptions = new List<string>();
     public Material[] tileMaterialCollection;
     public GameObject[] signCollection;
-    public List<string> zombieOptions = new List<string>();
-    public Animation zombieAnimationStates;
-    public Dropdown zombieActionPicker;
-    public Button drawCard;
     public GameObject zombieAnimation;
     public GameObject zombie;
     public GameObject currentTile;
     public GameObject nextTile;
     public GameObject nextColorTile;
+    public Animation zombieAnimationStates;
+    public Dropdown zombieActionPicker;
+    public Button drawCard;
     public Text debugText;
     public RawImage imageNextColor;
     public string currentAnimation;
@@ -30,10 +31,16 @@ public class TestZombieAnimations : MonoBehaviour
     public bool moveReverse = false;
     public bool foundWinner = false;
     public bool showDebug = false;
+    #endregion
 
     // Use this for initialization
     void Start()
     {
+        signCollection = Resources.LoadAll<GameObject>("Prefab_Signs");
+        updateDebug("Loading signCollection, found " + signCollection.Length.ToString() + " signs");
+        tileMaterialCollection = Resources.LoadAll<Material>("Materials_TileColors");
+        updateDebug("Loading tileMaterialCollection, found " + tileMaterialCollection.Length.ToString() + " colors");
+
         getTileCollection();
         currentTile = tileCollection[currentTileCount];
         nextTile = tileCollection[nextTileCount];
@@ -167,26 +174,39 @@ public class TestZombieAnimations : MonoBehaviour
         int i = 0;
         int j = 0;
 
+        //Create a list of color cards that are used in the game, could be less than the total list of color cards
+        List<Material> tempTileMaterialCollection = new List<Material>();
+        Material foundMaterial;
+
         foreach (GameObject tile in tileCollection)
         {
             i = Random.Range(0, tileMaterialCollection.Length);
             j = Random.Range(0, signCollection.Length);
-
-            GameObject sign = tile.transform.Find("Sign").gameObject;
-            sign = signCollection[j].gameObject;
-            sign.name = tile.name + "_" + j.ToString() + "_sign";
+            //j = 0;
+            GameObject sign;
+            sign = Instantiate(signCollection[j].gameObject);
+            sign.name = signCollection[j].gameObject.name;
             sign.transform.position = new Vector3(0, 1, 0);
-            sign.transform.rotation = new Quaternion(270, 0, 0, 0);
-            sign.transform.localScale = new Vector3(0.001276128f, 0.02208854f, 0.001276128f);
+            sign.transform.Rotate(90, 0, 0);
+            //sign.transform.localScale = new Vector3(sign.transform.localScale.x * 100, sign.transform.localScale.x * 10, 0.01f);
+            sign.transform.SetParent(tile.transform, false);
+            //sign.transform.localScale = new Vector3(0.001276128f, 0.02208854f, 0.001276128f);
+            //sign.transform.localScale = new Vector3(sign.transform.localScale.x * 100, sign.transform.localScale.x * 10, 0.01f);
+
             //sign.GetComponent<Renderer>().material = tileMaterialCollection[i];
             updateDebug("sign: " + sign.name + " | parent: " + tile.name + " | position: " + sign.transform.position.ToString());
 
-            tile.GetComponent<Renderer>().material = tileMaterialCollection[i];
+            foundMaterial = tileMaterialCollection[i];
+            tile.GetComponent<Renderer>().material = foundMaterial;
+            if (!tempTileMaterialCollection.Contains(foundMaterial)) { tempTileMaterialCollection.Add(foundMaterial); }
 
             updateDebug("Tile: " + tile.name + " | Tile Color: " + tileMaterialCollection[i].name + " | Sign: " + signCollection[j].name);
             updateDebug("Sign: " + sign.name + " | Sign Cords: " + sign.transform.rotation.x.ToString());
         }
+
+        //tileMaterialCollection = tempTileMaterialCollection.ToArray();
     }
+
     void updateDebug(string message)
     {
         if (showDebug)
@@ -210,7 +230,7 @@ public class TestZombieAnimations : MonoBehaviour
     private void pickCard()
     {
         int i = Random.Range(0, tileMaterialCollection.Length);
-        
+
         updateDebug("Picking a card: " + i);
         Color nextColor = tileMaterialCollection[i].color;
         updateDebug("Card Color: " + nextColor.ToString());
