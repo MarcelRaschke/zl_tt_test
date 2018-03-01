@@ -44,7 +44,6 @@ public class TestZombieAnimations : MonoBehaviour
         getTileCollection();
         currentTile = tileCollection[currentTileCount];
         nextTile = tileCollection[nextTileCount];
-        nextColorTile = tileCollection[0];
 
         drawCard.onClick.AddListener(delegate { pickCard(); });
 
@@ -80,10 +79,24 @@ public class TestZombieAnimations : MonoBehaviour
 
         if (currentAnimation == zombieWalkAnimation)
         {
-            moveZombie();
+            if (nextColorTile != null)
+            {
+                moveZombie();
+            }
+            else
+            {
+                stopZombie();
+            }
         }
 
         rotateZombie();
+    }
+
+    void stopZombie()
+    {
+        setZombieAction(0);
+        zombieActionPicker.value = 0;
+        nextColorTile = null;
     }
 
     void moveZombie()
@@ -94,8 +107,7 @@ public class TestZombieAnimations : MonoBehaviour
         updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , looking for " + nextColorTile.name);
         if (zombie.transform.position == nextColorTile.transform.position)
         {
-            setZombieAction(0);
-            zombieActionPicker.value = 0;
+            stopZombie();
 
             currentTile = nextTile;
             currentTileCount = nextTileCount;
@@ -128,7 +140,7 @@ public class TestZombieAnimations : MonoBehaviour
 
             if (moveReverse && currentTileCount == 0)
             {
-                setZombieAction(0);
+                stopZombie();
                 foundWinner = true;
                 return;
             }
@@ -185,23 +197,23 @@ public class TestZombieAnimations : MonoBehaviour
             j = Random.Range(0, signCollection.Length);
             j = 0;
             GameObject sign;
+            GameObject text;
+            foundMaterial = tileMaterialCollection[i];
+
             sign = Instantiate(signCollection[j].gameObject);
             sign.name = signCollection[j].gameObject.name;
-            sign.transform.position = new Vector3(0, 1, 0);
+            text = sign.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+            text.GetComponent<TextMesh>().color = foundMaterial.color;
             sign.transform.SetParent(tile.transform, false);
-
-            sign.GetComponent<Renderer>().material = tileMaterialCollection[i];
             updateDebug("sign: " + sign.name + " | parent: " + tile.name + " | position: " + sign.transform.position.ToString());
 
-            foundMaterial = tileMaterialCollection[i];
             tile.GetComponent<Renderer>().material = foundMaterial;
             if (!tempTileMaterialCollection.Contains(foundMaterial)) { tempTileMaterialCollection.Add(foundMaterial); }
 
             updateDebug("Tile: " + tile.name + " | Tile Color: " + tileMaterialCollection[i].name + " | Sign: " + signCollection[j].name);
-            updateDebug("Sign: " + sign.name + " | Sign Cords: " + sign.transform.rotation.x.ToString());
         }
 
-        //tileMaterialCollection = tempTileMaterialCollection.ToArray();
+        tileMaterialCollection = tempTileMaterialCollection.ToArray();
     }
 
     void updateDebug(string message)
@@ -227,17 +239,15 @@ public class TestZombieAnimations : MonoBehaviour
     private void pickCard()
     {
         int i = Random.Range(0, tileMaterialCollection.Length);
-
-        updateDebug("Picking a card: " + i);
         Color nextColor = tileMaterialCollection[i].color;
-        updateDebug("Card Color: " + nextColor.ToString());
+        updateDebug("Picking a card: " + i + " | " + "Card Color: " + nextColor.ToString());
         imageNextColor.GetComponent<Graphic>().color = nextColor;
 
         i = moveReverse ? i = 0 : i = tileCollection.Count - 1;
 
         if (moveReverse)
         {
-            for (int j = currentTileCount; j >= i; j--)
+            for (int j = currentTileCount - 1; j >= i; j--)
             {
                 updateDebug("moveReverse: " + moveReverse.ToString() + " | i:" + i.ToString() + " | j: " + j.ToString() + " | tileCollection: [" + tileCollection[j].GetComponent<Renderer>().material.color.ToString() + "] | NextColor: [" + nextColor.ToString() + "]");
                 if (tileCollection[j].GetComponent<Renderer>().material.color == nextColor)
@@ -249,7 +259,7 @@ public class TestZombieAnimations : MonoBehaviour
         }
         else
         {
-            for (int j = currentTileCount; j <= i; j++)
+            for (int j = currentTileCount + 1; j <= i; j++)
             {
                 updateDebug("moveReverse: " + moveReverse.ToString() + " | i:" + i.ToString() + " | j: " + j.ToString() + " | tileCollection: [" + tileCollection[j].GetComponent<Renderer>().material.color.ToString() + "] | NextColor: [" + nextColor.ToString() + "]");
                 if (tileCollection[j].GetComponent<Renderer>().material.color == nextColor)
