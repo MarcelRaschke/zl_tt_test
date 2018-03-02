@@ -11,6 +11,7 @@ public class TestZombieAnimations : MonoBehaviour
     public List<string> zombieOptions = new List<string>();
     public Material[] tileMaterialCollection;
     public GameObject[] signCollection;
+    public Material[] tileCornerMaterialCollection;
     public GameObject zombieAnimation;
     public GameObject zombie;
     public GameObject currentTile;
@@ -40,6 +41,8 @@ public class TestZombieAnimations : MonoBehaviour
         updateDebug("Loading signCollection, found " + signCollection.Length.ToString() + " signs");
         tileMaterialCollection = Resources.LoadAll<Material>("Materials_TileColors");
         updateDebug("Loading tileMaterialCollection, found " + tileMaterialCollection.Length.ToString() + " colors");
+        tileCornerMaterialCollection = Resources.LoadAll<Material>("Materials_TileCorners");
+        updateDebug("Loading tileCornerMaterialCollection, found " + tileCornerMaterialCollection.Length.ToString() + " colors");
 
         getTileCollection();
         currentTile = tileCollection[currentTileCount];
@@ -73,23 +76,26 @@ public class TestZombieAnimations : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rotateZombie();
-
-        debugText.enabled = showDebug;
-
-        if (currentAnimation == zombieWalkAnimation)
+        if (!foundWinner)
         {
-            if (nextColorTile != null)
-            {
-                moveZombie();
-            }
-            else
-            {
-                stopZombie();
-            }
-        }
+            rotateZombie();
 
-        rotateZombie();
+            debugText.enabled = showDebug;
+
+            if (currentAnimation == zombieWalkAnimation)
+            {
+                if (nextColorTile != null)
+                {
+                    moveZombie();
+                }
+                else
+                {
+                    stopZombie();
+                }
+            }
+
+            rotateZombie();
+        }
     }
 
     void stopZombie()
@@ -142,6 +148,7 @@ public class TestZombieAnimations : MonoBehaviour
             {
                 stopZombie();
                 foundWinner = true;
+                setZombieAction(3);
                 return;
             }
 
@@ -186,19 +193,24 @@ public class TestZombieAnimations : MonoBehaviour
     {
         int i = 0;
         int j = 0;
+        int c = 0;
 
         //Create a list of color cards that are used in the game, could be less than the total list of color cards
         List<Material> tempTileMaterialCollection = new List<Material>();
         Material foundMaterial;
+        Material cornerMaterial;
 
         foreach (GameObject tile in tileCollection)
         {
             i = Random.Range(0, tileMaterialCollection.Length);
             j = Random.Range(0, signCollection.Length);
-            j = 0;
+            c = Random.Range(0, tileCornerMaterialCollection.Length);
+
             GameObject sign;
             GameObject text;
+
             foundMaterial = tileMaterialCollection[i];
+            cornerMaterial = tileCornerMaterialCollection[c];
 
             sign = Instantiate(signCollection[j].gameObject);
             sign.name = signCollection[j].gameObject.name;
@@ -208,6 +220,12 @@ public class TestZombieAnimations : MonoBehaviour
             updateDebug("sign: " + sign.name + " | parent: " + tile.name + " | position: " + sign.transform.position.ToString());
 
             tile.GetComponent<Renderer>().material = foundMaterial;
+
+            for (int x = 1; x <= 4; x++)
+            {
+                tile.transform.Find("Corner_" + x.ToString()).GetComponent<Renderer>().material = cornerMaterial;
+            }
+
             if (!tempTileMaterialCollection.Contains(foundMaterial)) { tempTileMaterialCollection.Add(foundMaterial); }
 
             updateDebug("Tile: " + tile.name + " | Tile Color: " + tileMaterialCollection[i].name + " | Sign: " + signCollection[j].name);
