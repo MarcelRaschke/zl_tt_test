@@ -155,6 +155,36 @@ public class TestZombieAnimations : MonoBehaviour
             nextTileCount = (moveReverse) ? nextTileCount - 1 : nextTileCount + 1;
             nextTile = tileCollection[nextTileCount];
         }
+
+        //if (nextColorTile = null) { moveZombieBack(1); }
+    }
+
+    void moveZombieBack(int numberOfSteps)
+    {
+        float step = walkSpeed * Time.deltaTime;
+        zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, nextTile.transform.position, step);
+
+        updateDebug("Moving backwards from " + currentTile.name + " to " + nextTile.name + " , looking for " + nextColorTile.name);
+        if (zombie.transform.position == nextColorTile.transform.position)
+        {
+            stopZombie();
+
+            currentTile = nextTile;
+            currentTileCount = nextTileCount;
+            updateDebug("nextTileCount: " + nextTileCount.ToString());
+
+            nextTileCount = (moveReverse) ? nextTileCount + 1 : nextTileCount - 1;
+            nextTile = tileCollection[nextTileCount];
+        }
+        else if (zombie.transform.position == nextTile.transform.position)
+        {
+            currentTile = nextTile;
+            currentTileCount = nextTileCount;
+            updateDebug("nextTileCount: " + nextTileCount.ToString());
+
+            nextTileCount = (moveReverse) ? nextTileCount - 1 : nextTileCount + 1;
+            nextTile = tileCollection[nextTileCount];
+        }
     }
 
     void rotateZombie()
