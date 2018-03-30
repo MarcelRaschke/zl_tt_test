@@ -116,7 +116,7 @@ public class TestZombieAnimations : MonoBehaviour
             }
         }
         
-        if (Input.touchSupported)
+        if (Input.touchSupported && Application.platform != RuntimePlatform.WebGLPlayer)
         {
             HandleTouch();
         }
