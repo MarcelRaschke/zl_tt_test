@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TestZombieAnimations : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class TestZombieAnimations : MonoBehaviour
     public Animation zombieAnimationStates;
     public Dropdown zombieActionPicker;
     public Button drawCard;
+    public Button takeTurn;
+    public Button startOver;
     public Text debugText;
     public RawImage imageNextColor;
     public string currentAnimation;
@@ -27,9 +30,11 @@ public class TestZombieAnimations : MonoBehaviour
     public string zombieWalkAnimation = "Zombie_Walk_01";
     public int currentTileCount = 0;
     public int nextTileCount = 1;
+    public int knockBackStepsMax = 3;
     public float walkSpeed = 15;
     public float turnSpeed = 5;
     public bool moveReverse = false;
+    public bool backupZombie = false;
     public bool foundWinner = false;
     public bool showDebug = false;
     #endregion
@@ -49,6 +54,8 @@ public class TestZombieAnimations : MonoBehaviour
         nextTile = tileCollection[nextTileCount];
 
         drawCard.onClick.AddListener(delegate { pickCard(); });
+        takeTurn.onClick.AddListener(delegate { takePlayerTurn(); });
+        startOver.onClick.AddListener(delegate { startGameOver(); });
 
         zombieActionPicker.onValueChanged.AddListener(delegate { zombieActionChanged(zombieActionPicker); });
         zombieActionPicker.ClearOptions();
@@ -88,13 +95,24 @@ public class TestZombieAnimations : MonoBehaviour
                 {
                     moveZombie();
                 }
+                else if (backupZombie)
+                {
+                    moveZombieBack();
+                }
                 else
                 {
                     stopZombie();
                 }
             }
-
             rotateZombie();
+            takeTurn.enabled = true;
+        }
+        else
+        {
+            if (currentAnimation != "Zombie_Death_01")
+            {
+                setZombieAction(3);
+            }
         }
     }
 
@@ -155,12 +173,18 @@ public class TestZombieAnimations : MonoBehaviour
             nextTileCount = (moveReverse) ? nextTileCount - 1 : nextTileCount + 1;
             nextTile = tileCollection[nextTileCount];
         }
-
-        //if (nextColorTile = null) { moveZombieBack(1); }
     }
 
-    void moveZombieBack(int numberOfSteps)
+    void moveZombieBack()
     {
+        int numberOfSteps = Random.Range(1, knockBackStepsMax);
+        updateDebug("No tile found, moving back " + numberOfSteps.ToString() + " space(s)");
+        int backupTileCount = (moveReverse) ? currentTileCount + numberOfSteps : currentTileCount - numberOfSteps;
+        nextTile = tileCollection[backupTileCount];
+
+        nextColorTile = tileCollection[backupTileCount];
+        nextTileCount = backupTileCount;
+
         float step = walkSpeed * Time.deltaTime;
         zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, nextTile.transform.position, step);
 
@@ -174,15 +198,6 @@ public class TestZombieAnimations : MonoBehaviour
             updateDebug("nextTileCount: " + nextTileCount.ToString());
 
             nextTileCount = (moveReverse) ? nextTileCount + 1 : nextTileCount - 1;
-            nextTile = tileCollection[nextTileCount];
-        }
-        else if (zombie.transform.position == nextTile.transform.position)
-        {
-            currentTile = nextTile;
-            currentTileCount = nextTileCount;
-            updateDebug("nextTileCount: " + nextTileCount.ToString());
-
-            nextTileCount = (moveReverse) ? nextTileCount - 1 : nextTileCount + 1;
             nextTile = tileCollection[nextTileCount];
         }
     }
@@ -263,7 +278,6 @@ public class TestZombieAnimations : MonoBehaviour
 
         tileMaterialCollection = tempTileMaterialCollection.ToArray();
     }
-
     void updateDebug(string message)
     {
         if (showDebug)
@@ -287,6 +301,7 @@ public class TestZombieAnimations : MonoBehaviour
     private void pickCard()
     {
         int i = Random.Range(0, tileMaterialCollection.Length);
+        int tile = -1;
         Color nextColor = tileMaterialCollection[i].color;
         updateDebug("Picking a card: " + i + " | " + "Card Color: " + nextColor.ToString());
         imageNextColor.GetComponent<Graphic>().color = nextColor;
@@ -301,6 +316,7 @@ public class TestZombieAnimations : MonoBehaviour
                 if (tileCollection[j].GetComponent<Renderer>().material.color == nextColor)
                 {
                     nextColorTile = tileCollection[j].gameObject;
+                    tile = j;
                     break;
                 }
             }
@@ -313,10 +329,40 @@ public class TestZombieAnimations : MonoBehaviour
                 if (tileCollection[j].GetComponent<Renderer>().material.color == nextColor)
                 {
                     nextColorTile = tileCollection[j].gameObject;
+                    tile = j;
                     break;
                 }
             }
         }
-        updateDebug("Next Tile to stop at will be: " + nextColorTile.name);
+        if (tile > -1) updateDebug("Next Tile to stop at will be: " + nextColorTile.name + " [tile " + tile.ToString() + "]");
+
+        if (tile == -1)
+        {
+            backupZombie = true;
+        }
+    }
+
+    private void takePlayerTurn()
+    {
+        if (currentAnimation != zombieWalkAnimation)
+        {
+            updateDebug("Player taking turn");
+            takeTurn.enabled = false;
+            pickCard();
+            setZombieAction(1);
+        }
+    }
+
+    public void startGameOver()
+    {
+        updateDebug("Starting Over");
+        currentTileCount = 0;
+        nextTileCount = 1;
+        nextTile = tileCollection[1];
+        zombie.transform.position = tileCollection[0].transform.position;
+        setZombieAction(0);
+        moveReverse = false;
+        foundWinner = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
