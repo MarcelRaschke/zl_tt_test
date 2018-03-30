@@ -2018,6 +2018,7 @@ MonoBehaviour:
   startOver: {fileID: 915862074}
   debugText: {fileID: 643405485}
   imageNextColor: {fileID: 190314029}
+  mainCamera: {fileID: 904254089}
   currentAnimation: 
   zombieStartAnimation: Zombie_Idle_01
   zombieWalkAnimation: Zombie_Walk_01

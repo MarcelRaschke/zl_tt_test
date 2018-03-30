@@ -466,13 +466,13 @@ public class TestZombieAnimations : MonoBehaviour
         Vector3 move = new Vector3(offset.x * PanSpeed, 0, offset.y * PanSpeed);
 
         // Perform the movement
-        transform.Translate(move, Space.World);
+        cam.transform.Translate(move, Space.World);
 
         // Ensure the camera remains within bounds.
         Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(transform.position.x, BoundsX[0], BoundsX[1]);
-        pos.z = Mathf.Clamp(transform.position.z, BoundsZ[0], BoundsZ[1]);
-        transform.position = pos;
+        pos.x = Mathf.Clamp(transform.position.x, BoundsX[0], BoundsX[400]);
+        pos.z = Mathf.Clamp(transform.position.z, BoundsZ[0], BoundsZ[400]);
+        cam.transform.position = pos;
 
         // Cache the position
         lastPanPosition = newPanPosition;

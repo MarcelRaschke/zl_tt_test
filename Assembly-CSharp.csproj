@@ -93,7 +93,6 @@
      <Compile Include="Assets\Industrial Sign Pack\Standard Assets\Utility\TimedObjectDestructor.cs" />
      <Compile Include="Assets\Industrial Sign Pack\Standard Assets\Utility\WaypointCircuit.cs" />
      <Compile Include="Assets\Industrial Sign Pack\Standard Assets\Utility\WaypointProgressTracker.cs" />
-     <Compile Include="Assets\Scripts\CameraHandler.cs" />
      <Compile Include="Assets\Scripts\TestZombieAnimations.cs" />
      <None Include="Assets\Industrial Sign Pack\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Industrial Sign Pack\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
