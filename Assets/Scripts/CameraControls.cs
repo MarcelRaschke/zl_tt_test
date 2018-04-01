@@ -52,7 +52,7 @@ public class CameraControls : MonoBehaviour
                 Debug.Log(touchDeltaPosition.ToString() + " | adjustedPanSpeed: " + adjustedPanSpeed.ToString());
 
                 // Move object across XY plane
-                transform.Translate(-touchDeltaPosition.x * panSpeed, -touchDeltaPosition.y * panSpeed, 0);
+                transform.Translate(-touchDeltaPosition.x * adjustedPanSpeed, -touchDeltaPosition.y * adjustedPanSpeed, 0);
             }
             if (Input.touchCount == 2)
             {
