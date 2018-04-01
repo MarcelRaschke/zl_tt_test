@@ -1652,6 +1652,7 @@ GameObject:
   - component: {fileID: 904254089}
   - component: {fileID: 904254088}
   - component: {fileID: 904254087}
+  - component: {fileID: 904254091}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1722,6 +1723,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &904254091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 904254086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e51b9f07d6afe4b4ab83eee842d1a694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 1
+  panSpeed: 1
+  orthographicSizeMin: 1
+  orthographicSizeMax: 60
+  fovMin: 1
+  fovMax: 60
 --- !u!1 &905367856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,7 +2043,7 @@ MonoBehaviour:
   currentTileCount: 0
   nextTileCount: 1
   knockBackStepsMax: 1
-  walkSpeed: 500
+  walkSpeed: 50
   turnSpeed: 5
   moveReverse: 0
   backupZombie: 0
