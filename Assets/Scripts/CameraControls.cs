@@ -1,55 +1,52 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CameraControls : MonoBehaviour
 {
     public float perspectiveZoomSpeed = 0.5f; // The rate of change of the field of view in perspective mode.
     public float orthoZoomSpeed = 0.5f; // The rate of change of the orthographic size in orthographic mode.
-    public float panSpeed = 0.1F;
+    public float panSpeed = 0.25F;
     public float orthographicSizeMin = 30F;
     public float orthographicSizeMax = 275F;
     public float fovMin = 30F;
     public float fovMax = 60f;
+    public float adjustedPanSpeed;
     private Camera myCamera;
+    private Vector3 dragOrigin; //Where are we moving?
+    private Vector3 clickOrigin = Vector3.zero; //Where are we starting?
+    private Vector3 basePos = Vector3.zero; //Where should the camera be initially?
+    public Text debugFov;
+    public Text debugPanSpeed;
+    public Text debugRawPanSpeed;
+    public Slider debugSetRawPanSpeed;
+    public bool debugCamera = false;
 
     void Start()
     {
-        Debug.Log("This is: " + this.ToString());
+        updateDebug("This is: " + this.ToString());
         myCamera = Camera.main;
-        Debug.Log("Cam is: " + myCamera.ToString());
+        updateDebug("Cam is: " + myCamera.ToString());
+
+        debugSetRawPanSpeed.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        debugSetRawPanSpeed.value = panSpeed;
     }
     void Update()
     {
+        SetDebugObjects();
         if (myCamera.enabled)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") < 0)
-            {
-                Debug.Log("Mouse Scroll Wheel Back: " + Input.GetAxis("Mouse ScrollWheel").ToString());
-                zoomOut();
-            }
-
-            if (Input.GetAxis("Mouse ScrollWheel") > 0)
-            {
-                Debug.Log("Mouse Scroll Wheel Forward: " + Input.GetAxis("Mouse ScrollWheel").ToString());
-                zoomIn();
-            }
-
-            if (Input.GetMouseButtonDown(0))
-                Debug.Log("Pressed left click.");
-
-            if (Input.GetMouseButtonDown(1))
-                Debug.Log("Pressed right click.");
-
-            if (Input.GetMouseButtonDown(2))
-                Debug.Log("Pressed middle click.");
+            adjustedPanSpeed = panSpeed * (myCamera.fieldOfView / fovMax);
+            debugFov.text = "fov: " + myCamera.fieldOfView.ToString();
+            debugPanSpeed.text = "pan: " + adjustedPanSpeed.ToString();
+            debugRawPanSpeed.text = "raw pan: " + panSpeed.ToString();
 
             if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
                 // Get movement of the finger since last frame
                 Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-                float adjustedPanSpeed = panSpeed * (fovMax / myCamera.fieldOfView);
 
-                Debug.Log(touchDeltaPosition.ToString() + " | adjustedPanSpeed: " + adjustedPanSpeed.ToString());
+                updateDebug(touchDeltaPosition.ToString() + " | adjustedPanSpeed: " + adjustedPanSpeed.ToString());
 
                 // Move object across XY plane
                 transform.Translate(-touchDeltaPosition.x * adjustedPanSpeed, -touchDeltaPosition.y * adjustedPanSpeed, 0);
@@ -89,39 +86,86 @@ public class CameraControls : MonoBehaviour
                     myCamera.fieldOfView = Mathf.Clamp(myCamera.fieldOfView, fovMin, fovMax);
                 }
             }
-        }
 
+            if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            {
+                updateDebug("Mouse Scroll Wheel Back: " + Input.GetAxis("Mouse ScrollWheel").ToString());
+                zoomOut();
+            }
+
+            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            {
+                updateDebug("Mouse Scroll Wheel Forward: " + Input.GetAxis("Mouse ScrollWheel").ToString());
+                zoomIn();
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                updateDebug("Pressed left click.");
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                updateDebug("Pressed right click.");
+            }
+
+            if (Input.GetMouseButtonDown(2))
+            {
+                updateDebug("Pressed middle click.");
+            }
+        }
     }
 
     void zoomOut()
     {
         if (myCamera.orthographic)
         {
-            Debug.Log("zoom out Orthographic");
+            updateDebug("zoom out Orthographic");
             myCamera.orthographicSize += orthoZoomSpeed;
             myCamera.orthographicSize = Mathf.Clamp(myCamera.orthographicSize, orthographicSizeMin, orthographicSizeMax);
         }
         else
         {
-            Debug.Log("zoom out Perspective");
+            updateDebug("zoom out Perspective");
             myCamera.fieldOfView += perspectiveZoomSpeed;
             myCamera.fieldOfView = Mathf.Clamp(myCamera.fieldOfView, fovMin, fovMax);
         }
 
     }
+
     void zoomIn()
     {
         if (myCamera.orthographic)
         {
-            Debug.Log("zoom in Orthographic");
+            updateDebug("zoom in Orthographic");
             myCamera.orthographicSize += orthoZoomSpeed;
             myCamera.orthographicSize = Mathf.Clamp(myCamera.orthographicSize, orthographicSizeMin, orthographicSizeMax);
         }
         else
         {
-            Debug.Log("zoom in Perspective");
+            updateDebug("zoom in Perspective");
             myCamera.fieldOfView -= perspectiveZoomSpeed;
             myCamera.fieldOfView = Mathf.Clamp(myCamera.fieldOfView, fovMin, fovMax);
         }
+    }
+    void ValueChangeCheck()
+    {
+        panSpeed = debugSetRawPanSpeed.value;
+    }
+
+    void updateDebug(string message)
+    {
+        if (debugCamera)
+        {
+            Debug.Log(message);
+        }
+    }
+
+    void SetDebugObjects()
+    {
+        debugFov.enabled = debugCamera;
+        debugPanSpeed.enabled = debugCamera;
+        debugRawPanSpeed.enabled = debugCamera;
+        debugSetRawPanSpeed.gameObject.SetActive(debugCamera);
     }
 }
