@@ -20,20 +20,22 @@ public class TestZombieAnimations : MonoBehaviour
     public GameObject nextColorTile;
     public Animation zombieAnimationStates;
     public Dropdown zombieActionPicker;
-    public Button drawCard;
     public Button takeTurn;
+    public Toggle toggleRun;
+    public Button drawCard;
     public Button startOver;
     public Text debugText;
     public RawImage imageNextColor;
-    public Camera mainCamera;
     public string currentAnimation;
     public string zombieStartAnimation = "Zombie_Idle_01";
     public string zombieWalkAnimation = "Zombie_Walk_01";
     public int currentTileCount = 0;
     public int nextTileCount = 1;
     public int knockBackStepsMax = 3;
-    public float walkSpeed = 15;
-    public float turnSpeed = 5;
+    public float walkSpeed = 15F;
+    public float runSpeed = 300F;
+    public float moveSpeed;
+    public float turnSpeed = 5F;
     public bool moveReverse = false;
     public bool backupZombie = false;
     public bool foundWinner = false;
@@ -57,6 +59,7 @@ public class TestZombieAnimations : MonoBehaviour
         drawCard.onClick.AddListener(delegate { pickCard(); });
         takeTurn.onClick.AddListener(delegate { takePlayerTurn(); });
         startOver.onClick.AddListener(delegate { startGameOver(); });
+        toggleRun.onValueChanged.AddListener(delegate { setMoveSpeed(); });
 
         zombieActionPicker.onValueChanged.AddListener(delegate { zombieActionChanged(zombieActionPicker); });
         zombieActionPicker.ClearOptions();
@@ -73,6 +76,8 @@ public class TestZombieAnimations : MonoBehaviour
         updateDebug("AnimationStates: " + zombieStates.Count.ToString());
         zombieActionPicker.AddOptions(zombieOptions);
         currentAnimation = zombieStartAnimation;
+
+        moveSpeed = walkSpeed;
     }
 
     /// Awake is called when the script instance is being loaded.
@@ -86,12 +91,19 @@ public class TestZombieAnimations : MonoBehaviour
     {
         if (!foundWinner)
         {
+            setMoveSpeed();
+
             rotateZombie();
 
             debugText.enabled = showDebug;
 
             if (currentAnimation == zombieWalkAnimation)
             {
+                if (Input.touchCount == 1 && Input.GetTouch(0).tapCount > 1)
+                {
+                    updateDebug("Tap Count: " + Input.GetTouch(0).tapCount.ToString());
+                    moveSpeed = runSpeed;
+                }
                 if (nextColorTile != null)
                 {
                     moveZombie();
@@ -115,15 +127,6 @@ public class TestZombieAnimations : MonoBehaviour
                 setZombieAction(3);
             }
         }
-
-        // if (Input.touchSupported && Application.platform != RuntimePlatform.WebGLPlayer)
-        // {
-        //     HandleTouch();
-        // }
-        // else
-        // {
-        //     HandleMouse();
-        // }
     }
 
     void stopZombie()
@@ -131,11 +134,12 @@ public class TestZombieAnimations : MonoBehaviour
         setZombieAction(0);
         zombieActionPicker.value = 0;
         nextColorTile = null;
+        moveSpeed = walkSpeed;
     }
 
     void moveZombie()
     {
-        float step = walkSpeed * Time.deltaTime;
+        float step = moveSpeed * Time.deltaTime;
         zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, nextTile.transform.position, step);
 
         updateDebug("Moving from " + currentTile.name + " to " + nextTile.name + " , looking for " + nextColorTile.name);
@@ -195,7 +199,7 @@ public class TestZombieAnimations : MonoBehaviour
         nextColorTile = tileCollection[backupTileCount];
         nextTileCount = backupTileCount;
 
-        float step = walkSpeed * Time.deltaTime;
+        float step = moveSpeed * Time.deltaTime;
         zombie.transform.position = Vector3.MoveTowards(zombie.transform.position, nextTile.transform.position, step);
 
         updateDebug("Moving backwards from " + currentTile.name + " to " + nextTile.name + " , looking for " + nextColorTile.name);
@@ -374,5 +378,17 @@ public class TestZombieAnimations : MonoBehaviour
         moveReverse = false;
         foundWinner = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void setMoveSpeed()
+    {
+        if (toggleRun.isOn)
+        {
+            moveSpeed = runSpeed;
+        }
+        else
+        {
+            moveSpeed = walkSpeed;
+        }
     }
 }

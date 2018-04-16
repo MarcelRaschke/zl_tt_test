@@ -4,6 +4,7 @@ using System.Collections;
 
 public class CameraControls : MonoBehaviour
 {
+    #region Variables
     public float perspectiveZoomSpeed = 0.5f; // The rate of change of the field of view in perspective mode.
     public float orthoZoomSpeed = 0.5f; // The rate of change of the orthographic size in orthographic mode.
     public float panSpeed = 0.25F;
@@ -12,15 +13,14 @@ public class CameraControls : MonoBehaviour
     public float fovMin = 30F;
     public float fovMax = 60f;
     public float adjustedPanSpeed;
+    public int tapCount = 0;
     private Camera myCamera;
-    private Vector3 dragOrigin; //Where are we moving?
-    private Vector3 clickOrigin = Vector3.zero; //Where are we starting?
-    private Vector3 basePos = Vector3.zero; //Where should the camera be initially?
     public Text debugFov;
     public Text debugPanSpeed;
     public Text debugRawPanSpeed;
     public Slider debugSetRawPanSpeed;
     public bool debugCamera = false;
+    #endregion
 
     void Start()
     {

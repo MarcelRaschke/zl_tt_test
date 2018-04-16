@@ -52,5 +52,7 @@
         "ProjectSettings/":true,
         "temp/":true,
         "Temp/":true
-    }
+    },
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false
 }
