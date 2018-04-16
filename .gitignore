@@ -4,6 +4,7 @@
 [Ll]library/
 library/
 Library/
+Library/*.log
 /[Tt]emp/
 /Temp/
 /temp/
