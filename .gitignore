@@ -5,6 +5,13 @@
 library/
 Library/
 Library/*.log
+Library/*
+Libray/metadata
+/Libray/metadata
+/Libray/metadata/
+Libray/ScriptAssemblies
+/Libray/ScriptAssemblies
+/Libray/ScriptAssemblies/
 /[Tt]emp/
 /Temp/
 /temp/

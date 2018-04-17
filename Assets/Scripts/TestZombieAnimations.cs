@@ -99,6 +99,8 @@ public class TestZombieAnimations : MonoBehaviour
 
             if (currentAnimation == zombieWalkAnimation)
             {
+                toggleRun.isOn = (moveSpeed == runSpeed);
+
                 if (Input.touchCount == 1 && Input.GetTouch(0).tapCount > 1)
                 {
                     updateDebug("Tap Count: " + Input.GetTouch(0).tapCount.ToString());
