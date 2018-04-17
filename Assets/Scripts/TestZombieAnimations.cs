@@ -102,8 +102,8 @@ public class TestZombieAnimations : MonoBehaviour
                 if (Input.touchCount == 1 && Input.GetTouch(0).tapCount > 1)
                 {
                     updateDebug("Tap Count: " + Input.GetTouch(0).tapCount.ToString());
-                    //moveSpeed = runSpeed;
-                    toggleRun.isOn = true;
+                    moveSpeed = runSpeed;
+                    //toggleRun.isOn = true;
                 }
                 if (nextColorTile != null)
                 {
@@ -391,5 +391,7 @@ public class TestZombieAnimations : MonoBehaviour
         {
             moveSpeed = walkSpeed;
         }
+
+        toggleRun.isOn = (moveSpeed == runSpeed);
     }
 }
